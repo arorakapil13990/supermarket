@@ -12,8 +12,8 @@ public class PercentageDiscount implements Discount {
 	}
 
 	@Override
-	public double getDiscountedPrice(Item item) {
-		int itemCost =item.getQuantity() * item.getProduct().getPrice();
+	public double getDiscountedPrice(int itemPrice, int quantity) {
+		int itemCost =quantity * itemPrice;
 		return itemCost - ((itemCost*x)/100);
 	}
 

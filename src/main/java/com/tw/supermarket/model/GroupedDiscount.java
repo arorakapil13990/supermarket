@@ -13,19 +13,18 @@ public class GroupedDiscount implements Discount {
 	}
 
 	@Override
-	public double getDiscountedPrice(Item item) {
-		int quant = item.getQuantity();
-		int price = 0;
-		int n = (x + y) / quant;
+	public double getDiscountedPrice(int itemPrice, int quantity) {
+		int discountedPrice = 0;
+		int n = (x + y) / quantity;
 		while (n > 0) {
-			price = price + x * item.getProduct().getPrice();
+			discountedPrice = discountedPrice + x * itemPrice;
 			n--;
-			quant = quant - (x + y);
+			quantity = quantity - (x + y);
 		}
-		if (quant > 0) {
-			price = price + (quant * item.getProduct().getPrice());
+		if (quantity > 0) {
+			discountedPrice = discountedPrice + (quantity * itemPrice);
 		}
-		return price;
+		return discountedPrice;
 	}
 
 }
