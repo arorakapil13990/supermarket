@@ -1,26 +1,38 @@
 package com.tw.supermarket.model;
 
-import com.tw.supermarket.model.inteface.Categorizable;
+import com.tw.supermarket.model.inteface.Discount;
 import com.tw.supermarket.model.inteface.SellingUnit;
 
-public class Product implements Categorizable {
+public class Product {
 	
 	private String name;
 	private int price;
-	private Categorizable parentCategory;
+	private Category parentCategory;
 	private SellingUnit sellingUnit;
+	private Discount discount;
 	
-	public Product(String name, int price, Categorizable parentCategory, SellingUnit sellingUnit) {
+	public Product(String name, int price, Category parentCategory, SellingUnit sellingUnit, Discount discount) {
 		super();
 		this.name = name;
 		this.price = price;
 		this.parentCategory = parentCategory;
 		this.sellingUnit = sellingUnit;
+		this.discount = discount;
 	}
-	public Categorizable getParentCategory() {
+	
+	
+	public Discount getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Discount discount) {
+		this.discount = discount;
+	}
+
+	public Category getParentCategory() {
 		return parentCategory;
 	}
-	public void setParentCategory(Categorizable parentCategory) {
+	public void setParentCategory(Category parentCategory) {
 		this.parentCategory = parentCategory;
 	}
 	public SellingUnit getSellingUnit() {
@@ -42,6 +54,23 @@ public class Product implements Categorizable {
 		this.price = price;
 	}
 	
-	
+	public double getDiscountedPrice(int quantity) {
+		double parentCategoryDiscountedPrice = 0;
+		
+		boolean isCategoryDiscountApplicable = true;
+		
+		if(this.getDiscount().getClass().equals(GroupedDiscount.class)){
+			isCategoryDiscountApplicable = false;
+		}
+		if (parentCategory != null && isCategoryDiscountApplicable) {
+			parentCategoryDiscountedPrice = parentCategory.getDiscountedPrice(quantity, this);
+		}
 
+		double categoryPrice = discount.getDiscountedPrice(quantity, this);
+		if (isCategoryDiscountApplicable && categoryPrice > parentCategoryDiscountedPrice) {
+			return parentCategoryDiscountedPrice;
+		}
+		return categoryPrice;
+	}
+	
 }

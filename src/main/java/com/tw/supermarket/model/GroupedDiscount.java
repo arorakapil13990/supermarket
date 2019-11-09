@@ -4,7 +4,7 @@ import com.tw.supermarket.model.inteface.Discount;
 
 public class GroupedDiscount implements Discount {
 
-	int x, y; // will change x,y and will also use weight
+	int x, y; 
 
 	public GroupedDiscount(int x, int y) {
 		super();
@@ -13,16 +13,17 @@ public class GroupedDiscount implements Discount {
 	}
 
 	@Override
-	public double getDiscountedPrice(int itemPrice, int quantity) {
+	public double getDiscountedPrice(int quantity, Product product) {
 		int discountedPrice = 0;
-		int n = (x + y) / quantity;
+		int price = product.getPrice();
+		int n = quantity/(x + y)  ;
 		while (n > 0) {
-			discountedPrice = discountedPrice + x * itemPrice;
+			discountedPrice = discountedPrice + (x * price);
 			n--;
 			quantity = quantity - (x + y);
 		}
 		if (quantity > 0) {
-			discountedPrice = discountedPrice + (quantity * itemPrice);
+			discountedPrice = discountedPrice + (quantity * price);
 		}
 		return discountedPrice;
 	}
