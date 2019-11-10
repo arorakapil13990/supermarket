@@ -1,5 +1,7 @@
 package com.tw.supermarket.model;
 
+import java.util.Optional;
+
 public class Category {
 
 	private String name;
@@ -7,44 +9,16 @@ public class Category {
 	private Category parentCategory;
 	
 	public Category(String name, Discount discount,Category parentCategory) {
-		super();
 		this.name = name;
 		this.discount = discount;
 		this.parentCategory = parentCategory;
 	}
-	
-	public Category getParentCategory() {
-		return parentCategory;
-	}
 
-	public void setParentCategory(Category parentCategory) {
-		this.parentCategory = parentCategory;
-	}
+	public double getPriceAfterCategoryDiscount(int quantity, Product product) {
+		double parentCategoryDiscountedPrice = Optional.ofNullable(parentCategory).isPresent() ? parentCategory.getPriceAfterCategoryDiscount(quantity, product) : 0;
+		double categoryPrice = discount.getPriceAfterDiscount(quantity, product);
 
-	public Discount getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public double getDiscountedPrice(int quantity, Product product) {
-		double parentCategoryDiscountedPrice = 0;
-		if (parentCategory != null) {
-			parentCategoryDiscountedPrice = parentCategory.getDiscountedPrice(quantity, product);
-		}
-
-		double categoryPrice = discount.getDiscountedPrice(quantity, product);
-		if (parentCategory != null && categoryPrice > parentCategoryDiscountedPrice) {
+		if (Optional.ofNullable(parentCategory).isPresent() && categoryPrice > parentCategoryDiscountedPrice) {
 			return parentCategoryDiscountedPrice;
 		}
 		return categoryPrice;
