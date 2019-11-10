@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.tw.supermarket.model.Category;
-import com.tw.supermarket.model.Customer;
 import com.tw.supermarket.model.Item;
 import com.tw.supermarket.model.PercentageDiscount;
 import com.tw.supermarket.model.Product;
@@ -17,9 +17,12 @@ import com.tw.supermarket.model.VolumeInLitres;
 import com.tw.supermarket.model.WeightInKiloGram;
 
 public class SuperMarketApplicationTest {
-
-	@Test
-	public void testDiscountedPriceForCustomer(){
+	
+	double totalPrice = 0;
+	 double totalItemPrice = 0;
+	 
+	@Before
+	public void setUp(){
 		SellingUnit inKG = new WeightInKiloGram();
 		SellingUnit inLitres = new  VolumeInLitres();
 		
@@ -34,15 +37,11 @@ public class SuperMarketApplicationTest {
 		
 		Product apple = new Product("Apple", 50, fruits, inKG, new SurplusDiscount(3, 1));
 		Product potato = new Product("Potato", 30, veg, inKG, new SurplusDiscount(5, 2));
-		Product cheddar = new Product("Cheddar", 50, cheese, inKG, new SurplusDiscount(2, 1));
 		Product cowMilk = new Product("Cow Milk", 50, milk, inLitres, new SurplusDiscount(3, 1));
 	    
 		Product orange = new Product("Orange", 80, fruits, inKG, new PercentageDiscount(20));
 		Product tomato = new Product("Tomato", 70, veg, inKG, new PercentageDiscount(10));
-		Product soyMilk = new Product("Soy Milk", 40, milk, inLitres, new PercentageDiscount(10));
 		Product gouda = new Product("Gouda", 80, cheese, inKG, new PercentageDiscount(10));
-		
-		Customer customer = new Customer("Anish Kumar");
 		
 		 Item appleItem = new Item(6, inKG, apple);
 		 Item orangeItem = new Item(2, inKG, orange);
@@ -60,15 +59,15 @@ public class SuperMarketApplicationTest {
 		 items.add(tomatoItem);
 		 items.add(cowMilkItem);
 		 
-		 double totalPrice = 0;
-		 double totalItemPrice = 0;
-		 String outputString= "";
 		 for(Item item : items){
-			 double price = item.getProduct().getDiscountedPrice(item.getQuantity());
+			 double price = item.getItemDiscountedPrice();
 			 totalItemPrice = totalItemPrice + item.getItemPrice();
-			 System.out.println(item.getProduct().getName() +"         " + item.getQuantity()+item.getSellingUnit().getUnit() +"         " + price);
 			 totalPrice=totalPrice + price;
 		 }
-		 Assert.assertEquals(1295, totalPrice,0);
+	}
+
+	@Test
+	public void testDiscountedPriceForCustomer() {
+		Assert.assertEquals(1295, totalPrice,0);
 	}
 }

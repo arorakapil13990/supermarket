@@ -5,14 +5,16 @@ public class Item {
 	private int quantity;
 	private SellingUnit sellingUnit;
 	private Product product;
-	private double itemPrice;
-	
-	
+
 	public Item(int quantity, SellingUnit sellingUnit, Product product) {
 		super();
 		this.quantity = quantity;
 		this.sellingUnit = sellingUnit;
 		this.product = product;
+	}
+	
+	public double getItemDiscountedPrice(){
+		return this.getProduct().getDiscountedPrice(this.getQuantity());
 	}
 	
 

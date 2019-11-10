@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.tw.supermarket.model.Category;
 import com.tw.supermarket.model.Customer;
-import com.tw.supermarket.model.SurplusDiscount;
 import com.tw.supermarket.model.Item;
 import com.tw.supermarket.model.PercentageDiscount;
 import com.tw.supermarket.model.Product;
 import com.tw.supermarket.model.SellingUnit;
+import com.tw.supermarket.model.SurplusDiscount;
 import com.tw.supermarket.model.VolumeInLitres;
 import com.tw.supermarket.model.WeightInKiloGram;
 
@@ -60,8 +60,10 @@ public class SuperMarketApplication {
 		 double totalPrice = 0;
 		 double totalItemPrice = 0;
 		 String outputString= "";
+		 System.out.println("Customer :"+ customer.getName());
+		 System.out.println("\nItem         Qty	Amount");
 		 for(Item item : items){
-			 double price = item.getProduct().getDiscountedPrice(item.getQuantity());
+			 double price = item.getItemDiscountedPrice();
 			 totalItemPrice = totalItemPrice + item.getItemPrice();
 			 System.out.println(item.getProduct().getName() +"         " + item.getQuantity()+item.getSellingUnit().getUnit() +"         " + price);
 			 totalPrice=totalPrice + price;
