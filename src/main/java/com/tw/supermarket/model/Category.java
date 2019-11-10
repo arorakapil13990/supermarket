@@ -1,7 +1,5 @@
 package com.tw.supermarket.model;
 
-import com.tw.supermarket.model.inteface.Discount;
-
 public class Category {
 
 	private String name;

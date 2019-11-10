@@ -1,6 +1,4 @@
-package com.tw.supermarket.model.inteface;
-
-import com.tw.supermarket.model.Product;
+package com.tw.supermarket.model;
 
 public interface Discount {
 	

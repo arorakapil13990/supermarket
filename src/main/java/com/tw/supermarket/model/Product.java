@@ -1,8 +1,5 @@
 package com.tw.supermarket.model;
 
-import com.tw.supermarket.model.inteface.Discount;
-import com.tw.supermarket.model.inteface.SellingUnit;
-
 public class Product {
 	
 	private String name;
@@ -59,7 +56,7 @@ public class Product {
 		
 		boolean isCategoryDiscountApplicable = true;
 		
-		if(this.getDiscount().getClass().equals(GroupedDiscount.class)){
+		if(this.getDiscount().getClass().equals(SurplusDiscount.class)){
 			isCategoryDiscountApplicable = false;
 		}
 		if (parentCategory != null && isCategoryDiscountApplicable) {

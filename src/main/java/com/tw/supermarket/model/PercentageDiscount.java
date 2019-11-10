@@ -1,21 +1,19 @@
 package com.tw.supermarket.model;
 
-import com.tw.supermarket.model.inteface.Discount;
-
 public class PercentageDiscount implements Discount {
 
-	private int x;
+	private int percentageValue;
 
-	public PercentageDiscount(int x) {
+	public PercentageDiscount(int value) {
 		super();
-		this.x = x;
+		this.percentageValue = value;
 	}
 
 	@Override
 	public double getDiscountedPrice(int quantity, Product product) {
 		int price = product.getPrice();
 		int itemCost = quantity * price;
-		return itemCost - ((itemCost*x)/100);
+		return itemCost - ((itemCost*percentageValue)/100);
 	}
 
 }

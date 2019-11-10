@@ -1,4 +1,4 @@
-package com.tw.supermarket.model.inteface;
+package com.tw.supermarket.model;
 
 public interface SellingUnit {
 	String getUnit();

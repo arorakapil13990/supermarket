@@ -1,22 +1,25 @@
-package com.tw.supermarket.main;
+package com.tw.supermarket;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.tw.supermarket.model.Category;
 import com.tw.supermarket.model.Customer;
-import com.tw.supermarket.model.SurplusDiscount;
 import com.tw.supermarket.model.Item;
 import com.tw.supermarket.model.PercentageDiscount;
 import com.tw.supermarket.model.Product;
 import com.tw.supermarket.model.SellingUnit;
+import com.tw.supermarket.model.SurplusDiscount;
 import com.tw.supermarket.model.VolumeInLitres;
 import com.tw.supermarket.model.WeightInKiloGram;
 
-public class SuperMarketApplication {
+public class SuperMarketApplicationTest {
 
-	public static void main(String[] args) {
-		
+	@Test
+	public void testDiscountedPriceForCustomer(){
 		SellingUnit inKG = new WeightInKiloGram();
 		SellingUnit inLitres = new  VolumeInLitres();
 		
@@ -66,12 +69,6 @@ public class SuperMarketApplication {
 			 System.out.println(item.getProduct().getName() +"         " + item.getQuantity()+item.getSellingUnit().getUnit() +"         " + price);
 			 totalPrice=totalPrice + price;
 		 }
-		 System.out.println("--------------------------------------------");
-		 System.out.println("Total Amount	       		       "+totalPrice+"Rs");
-		 outputString=outputString+totalItemPrice+"-"+totalPrice+" = ";
-		 System.out.println("You Saved 		"+outputString+(totalItemPrice-totalPrice)+"Rs");
-		
-
+		 Assert.assertEquals(1295, totalPrice,0);
 	}
-
 }
