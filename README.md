@@ -6,6 +6,7 @@ For building and running the application you would require:<br>
 <ul>
 <li>JDK 1.8</li>
 <li>MAVEN </li>
+  <li>Junit 5</li>
 </ul>
 
 <h3>Building the application</h3>
@@ -25,11 +26,11 @@ For building and running the application you need:<br>
 <ul>
 <li>Language: Java 8</li>
 <li>Build and Packaging Tool: Maven</li>
-<li>Unit Testing: Junit4</li>
+<li>Unit Testing: Junit5</li>
 </ul>
 
 <h3>Test cases</h3>
-Application has following test cases covering 100% of application
+Application has following test case coverage of above 85%
 <ul> 
   <li>Unit test cases</li>
   <li>Integration test cases</li>
