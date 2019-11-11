@@ -10,7 +10,8 @@ public class SuperMarketApplication {
 
     public static void main(String[] args) {
 
-        displayOutput();
+        Cart cart = new Cart(1,getItems(),new Customer(1,"Anish Kumar"));
+        cart.display();
     }
 
     private static List<Item> getItems() {
@@ -49,27 +50,5 @@ public class SuperMarketApplication {
         return items;
     }
 
-    private static Price getPrice() {
-        Price price = new Price();
-        for (Item item : getItems()) {
-            double itemDiscountedPrice = item.getItemDiscountedPrice();
-            price.setTotalItemPrice(price.getTotalItemPrice() + item.getItemPrice());
-            System.out.println(item.getProduct().getName() + "         " + item.getQuantity() + item.getProduct().getSellingUnit() + "         " + itemDiscountedPrice);
-            price.setTotalPrice(price.getTotalPrice() + itemDiscountedPrice);
-        }
-        return price;
-    }
-
-    private static void displayOutput() {
-        Customer customer = new Customer("Anish Kumar");
-        String outputString = "";
-        System.out.println("Customer :" + customer.getName());
-        System.out.println("\nItem         Qty	     Amount");
-        Price price = getPrice();
-        System.out.println("--------------------------------------------");
-        System.out.println("Total Amount	       		  " + price.getTotalPrice() + "Rs");
-        outputString = outputString + price.getTotalItemPrice() + "-" + price.getTotalPrice() + " = ";
-        System.out.println("You Saved 		" + outputString + (price.getTotalItemPrice() - price.getTotalPrice()) + "Rs");
-    }
 
 }

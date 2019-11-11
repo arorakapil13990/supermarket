@@ -1,19 +1,18 @@
 package com.tw.supermarket.model;
 
+import com.tw.supermarket.emums.SellingUnit;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.tw.supermarket.emums.SellingUnit;
 
 public class CategoryTest {
 
 	List<Item> items = new ArrayList<Item>();
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		Category produce = new Category("Produce", new PercentageDiscount(10), null);
 		Category fruits = new Category("Fruits", new PercentageDiscount(18), produce);
@@ -24,7 +23,7 @@ public class CategoryTest {
 
 	@Test
 	public void testPriceAfterCategoryDiscount() {
-	Assert.assertEquals(250, items.get(0).getItemDiscountedPrice(),0);
+	Assert.assertEquals(250, items.get(0).calculateItemPriceAfterDiscount(),0);
 	}
 	
 	@Test

@@ -3,25 +3,21 @@ package com.tw.supermarket.application;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tw.supermarket.model.*;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 import com.tw.supermarket.emums.SellingUnit;
-import com.tw.supermarket.model.Category;
-import com.tw.supermarket.model.Item;
-import com.tw.supermarket.model.PercentageDiscount;
-import com.tw.supermarket.model.Product;
-import com.tw.supermarket.model.SurplusDiscount;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class SuperMarketApplicationTest {
+public class CartTest {
 	
-	double totalPrice = 0;
-	 double totalItemPrice = 0;
+
+	List<Item> items = new ArrayList<>();
 	 
-	@Before
+	@BeforeEach
 	public void setUp(){
-		
+
 		Category produce = new Category("Produce", new PercentageDiscount(10), null);
 		Category fruits = new Category("Fruits", new PercentageDiscount(18), produce);
 		Category veg = new Category("Veg", new PercentageDiscount(5), produce);
@@ -46,24 +42,19 @@ public class SuperMarketApplicationTest {
 		 Item cowMilkItem = new Item(8, cowMilk);
 		 Item goudaItem = new Item(2,gouda);
 		 
-		 List<Item> items = new ArrayList<Item>();
-		 
 		 items.add(goudaItem);
 		 items.add(orangeItem);
 		 items.add(potatoItem);
 		 items.add(appleItem);
 		 items.add(tomatoItem);
 		 items.add(cowMilkItem);
-		 
-		 for(Item item : items){
-			 double price = item.getItemDiscountedPrice();
-			 totalItemPrice = totalItemPrice + item.getItemPrice();
-			 totalPrice=totalPrice + price;
-		 }
+
+
 	}
 
 	@Test
-	public void testDiscountedPriceForCustomer() {
-		Assert.assertEquals(1295, totalPrice,0);
+	public void testCartPriceAfterDiscountForCustomer() {
+		Cart cart = new Cart(1, items,new Customer(1,"Anish Kumar"));
+		Assert.assertEquals(1295, cart.calculateCartPriceAfterDiscount(),0);
 	}
 }
